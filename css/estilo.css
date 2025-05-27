@@ -1,37 +1,51 @@
 .invisivel{
     display:none;
-  }
-  .visivel{
+}
+.visivel{
     display:inline;
-  }
-  .inicial {
+}
+.inicial {
     text-align: center;
     font-size: 100px;
-    background-color: lightgrey;
+    background-color: #e3f0fb; /* azul claro */
     width: 150px;
     height: 200px;
-    border: 15px solid green;
+    border: 15px solid #1976d2; /* azul forte */
     padding: 10px;
     margin: 20px;
-  }
-  .acertou {
+}
+.acertou {
     text-align: center;
-    color: yellow;
-    background-color: LawnGreen;
+    color: #1976d2; /* azul forte */
+    background-color: #ffffff; /* branco */
     width: 150px;
     height: 200px;
-    border: 15px solid yellow;
+    border: 15px solid #1976d2; /* azul forte */
     padding: 10px;
     margin: 20px;
-  }
-  .errou {
+}
+.errou {
     text-align: center;
-    font-size: 100px;
-    color: white;
-    background-color: red;
+    color: #ffffff; /* branco */
+    background-color: #1976d2; /* azul forte */
     width: 150px;
     height: 200px;
-    border: 15px solid black;
+    border: 15px solid #0d47a1; /* azul escuro */
     padding: 10px;
     margin: 20px;
-  }
+}
+body {
+    background-color: #bbdefb; /* azul claro */
+}
+.numero-carta {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 80px;
+    color: #1976d2;
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+    user-select: none;
+}
