@@ -26,6 +26,69 @@ function reiniciar() {
   btnReiniciar.className = 'invisivel';
 }
 
+// Função utilitária para limpar imagem e número antigos de uma carta
+function limparCarta(obj) {
+  let imgAntiga = obj.querySelector("#imagem");
+  if (imgAntiga) imgAntiga.remove();
+  let numAntigo = obj.querySelector(".numero-carta");
+  if (numAntigo) numAntigo.remove();
+}
+
+//função para criar container de carta com número e imagem
+function criarCarta(numero, srcImg, classeCarta) {
+  const container = document.createElement("div");
+  container.style.position = "relative";
+  container.style.width = "100%";
+  container.style.height = "100%";
+
+  const span = document.createElement("span");
+  span.className = "numero-carta";
+  span.textContent = numero;
+  container.appendChild(span);
+
+  const img = document.createElement("img");
+  img.id = "imagem";
+  img.width = 100;
+  img.src = srcImg;
+  img.style.display = "block";
+  img.style.margin = "0 auto";
+  img.style.position = "relative";
+  img.style.zIndex = "1";
+  container.appendChild(img);
+
+  return container;
+}
+
+//funçao executada quando o jogador acertou
+function acertou(obj, numero) {
+  obj.className = "acertou";
+  obj.style.display = "";
+  obj.style.alignItems = "";
+  obj.style.justifyContent = "";
+  limparCarta(obj);
+  obj.appendChild(criarCarta(numero, "caneta.webp", "acertou"));
+}
+
+//função executada quando o jogador errou
+function errou(obj, numero) {
+  obj.className = "errou";
+  obj.style.display = "";
+  obj.style.alignItems = "";
+  obj.style.justifyContent = "";
+  limparCarta(obj);
+  obj.appendChild(criarCarta(numero, "pust.jpeg", "errou"));
+}
+
+//função executada para mostrar a carta correta quando o jogador errou
+function errouCerta(obj, numero) {
+  obj.className = "acertou";
+  obj.style.display = "";
+  obj.style.alignItems = "";
+  obj.style.justifyContent = "";
+  limparCarta(obj);
+  obj.appendChild(criarCarta(numero, "caneta.webp", "acertou"));
+}
+
 //funçao jogar novamente
 function jogarNovamente() {
   jogar = true;//variável jogar volta a ser verdadeira
@@ -35,6 +98,7 @@ function jogarNovamente() {
     if (!isNaN(divis[i].id) && Number(divis[i].id) >= 0 && Number(divis[i].id) < TOTAL_CARTAS) {
       divis[i].className = "inicial";
       // Limpa todo o conteúdo da carta e repõe o número
+      limparCarta(divis[i]);
       divis[i].innerHTML = divis[i].id;
     }
   }
@@ -55,109 +119,6 @@ function atualizaPlacar(acertos, tentativas) {
   //escreve o placar com os valores atualizados (innerHTML)
   document.getElementById("resposta").innerHTML = "Placar - Acertos: " + acertos + " Tentativas: " + tentativas + " Desempenho: " + Math.round(desempenho) + "%";
 
-}
-
-//funçao executada quando o jogador acertou
-function acertou(obj, numero) {
-  obj.className = "acertou";
-  obj.style.display = "";
-  obj.style.alignItems = "";
-  obj.style.justifyContent = "";
-
-  // Remove imagem e número antigos
-  let imgAntiga = obj.querySelector("#imagem");
-  if (imgAntiga) imgAntiga.remove();
-  let numAntigo = obj.querySelector(".numero-carta");
-  if (numAntigo) numAntigo.remove();
-
-  // Cria um container relativo para sobreposição
-  const container = document.createElement("div");
-  container.style.position = "relative";
-  container.style.width = "100%";
-  container.style.height = "100%";
-
-  // Número atrás (absoluto)
-  const span = document.createElement("span");
-  span.className = "numero-carta";
-  span.textContent = numero;
-  container.appendChild(span);
-
-  // Imagem na frente
-  const img = document.createElement("img");
-  img.id = "imagem";
-  img.width = 100;
-  img.src = "caneta.webp";
-  img.style.display = "block";
-  img.style.margin = "0 auto";
-  img.style.position = "relative";
-  img.style.zIndex = "1";
-  container.appendChild(img);
-
-  obj.appendChild(container);
-}
-
-//função executada quando o jogador errou
-function errou(obj, numero) {
-  obj.className = "errou";
-  obj.style.display = "";
-  obj.style.alignItems = "";
-  obj.style.justifyContent = "";
-
-  // Remove imagem e número antigos
-  let imgAntiga = obj.querySelector("#imagem");
-  if (imgAntiga) imgAntiga.remove();
-  let numAntigo = obj.querySelector(".numero-carta");
-  if (numAntigo) numAntigo.remove();
-
-  // Cria um container relativo para sobreposição
-  const container = document.createElement("div");
-  container.style.position = "relative";
-  container.style.width = "100%";
-  container.style.height = "100%";
-
-  // Número atrás (absoluto)
-  const span = document.createElement("span");
-  span.className = "numero-carta";
-  span.textContent = numero;
-  container.appendChild(span);
-
-  // Imagem na frente
-  const img = document.createElement("img");
-  img.id = "imagem";
-  img.width = 100;
-  img.src = "pust.jpeg";
-  img.style.display = "block";
-  img.style.margin = "0 auto";
-  img.style.position = "relative";
-  img.style.zIndex = "1";
-  container.appendChild(img);
-
-  obj.appendChild(container);
-}
-
-//função executada para mostrar a carta correta quando o jogador errou
-function errouCerta(obj, numero) {
-  obj.className = "acertou";
-  obj.style.display = "";
-  obj.style.alignItems = "";
-  obj.style.justifyContent = "";
-  let imgAntiga = obj.querySelector("#imagem");
-  if (imgAntiga) imgAntiga.remove();
-  // Remove número antigo se existir
-  let numAntigo = obj.querySelector(".numero-carta");
-  if (numAntigo) numAntigo.remove();
-  const img = document.createElement("img");
-  img.id = "imagem";
-  img.width = 100;
-  img.src = "caneta.webp";
-  img.style.display = "block";
-  img.style.margin = "0 auto";
-  obj.appendChild(img);
-  // Adiciona o número sorteado
-  const span = document.createElement("span");
-  span.className = "numero-carta";
-  span.textContent = numero;
-  obj.appendChild(span);
 }
 
 //Função que sorteia um número aleatório entre 0 e TOTAL_CARTAS-1 e verifica se o jogador acertou
